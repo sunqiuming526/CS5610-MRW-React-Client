@@ -3,10 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {combineReducers, createStore} from "redux";
+import {Provider} from "react-redux"
+
+import navBarReducer from "./reducers/NavbarReducer";
+import movieReducer from "./reducers/MovieReducer"
+
+const reducers = combineReducers({navBarReducer, movieReducer})
+const store = createStore(reducers)
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App/>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
