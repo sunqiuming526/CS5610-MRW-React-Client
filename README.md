@@ -1,4 +1,49 @@
-# Getting Started with Create React App
+# PROTOTYPE
+
+## Describes the API
+
+Use IMDb rest API: https://rapidapi.com/apidojo/api/imdb8/endpoints.
+
+Get the general movie information by the movie title.
+
+General movie information includes the rating, release date, genre, directors and movie image.
+
+## Search Criteria
+
+User provides the title of the movie. 
+
+## Summary Results
+
+The result page renders a grid displaying the title of the movies from the API, and the data point.
+
+## Detail Results
+
+Clicking on one of the movie title should query the API for more detailed information about that specific movie.
+After getting the details such as the date, genre, directors and image, render them below the movie title (or in a separate page).
+
+Based on the movie: 
+- Users can give comments to this movie, and check other people's comments; collect the movie on their wishlists and give their own ratings.
+- Admins can edit movie information if they found API loading data is not correct. 
+- Publishers can publish new movies which is not in the IMDb database and edit the movie content.
+
+Movie query data can be stores in our own database. For every search, we load data from our own database first, if data cannot be found, than query from the IMDb API.
+
+For example, the detailed information can get from the link below based on title.
+
+Get genre: https://imdb8.p.rapidapi.com/title/get-genres
+
+Note: One movie can have more than multiple genres.
+
+Get rating: https://imdb8.p.rapidapi.com/title/get-ratings
+
+Get image: https://imdb8.p.rapidapi.com/title/get-images
+
+Note: return the image url 
+
+
+
+# OTHERS 
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
