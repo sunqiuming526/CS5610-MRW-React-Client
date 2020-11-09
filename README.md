@@ -4,7 +4,7 @@
 
 Use IMDb rest API: https://rapidapi.com/apidojo/api/imdb8/endpoints.
 
-Get the general movie information by the movie title.
+Get the general movie information using the movie title as the parameter.
 
 General movie information includes the rating, release date, genre, directors and movie image.
 
