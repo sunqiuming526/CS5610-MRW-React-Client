@@ -1,18 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {BrowserRouter, Link, Route} from "react-router-dom";
-
-
-import NavbarComponent from "./components/NavbarComponent";
-import MovieListComponent from "./components/MovieListComponent";
+import { Route, Router, Switch } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import "./App.css";
+import MoviePageContainer from "./containers/MoviePageContainer";
 
 function App() {
   return (
     <div className="App">
-      <NavbarComponent/>
-      <MovieListComponent/>
+      <Router history={createBrowserHistory()}>
+        <Switch>
+          <Route
+            path={["/users/:userID/movies", "/users/movies"]}
+            exact
+            component={MoviePageContainer}
+          />
+        </Switch>
+      </Router>
     </div>
   );
 }
