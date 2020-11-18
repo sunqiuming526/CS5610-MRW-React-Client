@@ -27,7 +27,7 @@ class MovieDetailsPage extends Component {
     const movie = this.props.movie;
     return (
       <Container>
-        <h1 className="display-1"><strong>{movie.title || "Title"}</strong></h1>
+        <h1 className="display-1 font-weight-bold">{movie.title || "Title"}</h1>
         <h3>
           <small className="text-muted">
             Rating: {movie.vote_average || -1} | {movie.genre} (

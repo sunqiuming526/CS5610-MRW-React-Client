@@ -6,13 +6,16 @@ const placeholderImg =
 
 const CurrentCommentsComponent = ({ user, children }) => {
   return (
-    <Media>
-      <Image className="mr-3" src={user.avatarUrl || placeholderImg} />
-      <Media.Body>
-        <h5 className="mt-0 text-justify">{user.name || "Bob"}</h5>
-        {children}
-      </Media.Body>
-    </Media>
+    <div>
+      <hr />
+      <Media>
+        <Image className="mr-3" src={user.avatarUrl || placeholderImg} />
+        <Media.Body>
+          <h5 className="mt-0 text-justify">{user.name || "Bob"}</h5>
+          {children}
+        </Media.Body>
+      </Media>
+    </div>
   );
 };
 

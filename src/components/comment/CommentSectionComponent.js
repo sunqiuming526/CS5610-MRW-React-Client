@@ -15,7 +15,6 @@ const CommentSectionComponent = ({}) => {
           <PostCommentCompoent />
         </Col>
       </Row>
-      <hr />
       <Row>
         <Col>
           <CurrentCommentsComponent user={{ name: "Bob" }}>
