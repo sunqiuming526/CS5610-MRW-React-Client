@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Container, Figure } from "react-bootstrap";
 import FigureCaption from "react-bootstrap/esm/FigureCaption";
 import { connect } from "react-redux";
+import CommentSectionComponent from "../../components/comment/CommentSectionComponent";
 import CastsComponent from "../../components/movie-details/CastsComponent";
 import { FETCH_MOVIE } from "../../reducers/ReducerTypes";
 import ImdbService from "../../services/ImdbService";
@@ -26,7 +27,7 @@ class MovieDetailsPage extends Component {
     const movie = this.props.movie;
     return (
       <Container>
-        <h1>{movie.title || "Title"}</h1>
+        <h1 className="display-1"><strong>{movie.title || "Title"}</strong></h1>
         <h3>
           <small className="text-muted">
             Rating: {movie.vote_average || -1} | {movie.genre} (
@@ -36,21 +37,18 @@ class MovieDetailsPage extends Component {
         <div className="col-md-12">
           <Figure>
             <img
-              src={getPosterFullUrl(IMAGE_SIZE.lg, movie.poster_path)}
+              src={getPosterFullUrl(IMAGE_SIZE.original, movie.poster_path)}
               className="figure-img img-fluid rounded"
               alt="A generic square placeholder image with rounded corners in a figure."
-              width="300"
-              height="400"
             />
-            <FigureCaption placeholder="tagline">
-              {movie.tagline}
-            </FigureCaption>
+            <FigureCaption placeholder="tagline">{movie.tagline}</FigureCaption>
           </Figure>
-          <div>{movie.overview || "Description"}</div>
+          <p className="text-justify">{movie.overview || "Description"}</p>
         </div>
         <hr />
         <CastsComponent casts={movie.casts || []} />
         <hr />
+        <CommentSectionComponent />
       </Container>
     );
   }

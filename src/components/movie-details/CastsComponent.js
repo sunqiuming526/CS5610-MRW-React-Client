@@ -5,7 +5,11 @@ import CastFigureComponent from "./CastFigureComponent";
 const CastsComponent = ({ casts }) => {
   return (
     <div>
-      <h3>Casts</h3>
+      <Row>
+        <Col>
+          <h3 className="float-left">Casts</h3>
+        </Col>
+      </Row>
       <Row>
         {casts
           .filter((cast) => cast.profile_path !== null)
