@@ -1,7 +1,8 @@
 import ReducerTypes from "./ReducerTypes";
 
 const initialState = {
-  movies: []
+  movies: [],
+  movie: {}
 }
 
 const NavBarReducer = (state = initialState, action) => {
@@ -25,6 +26,11 @@ const NavBarReducer = (state = initialState, action) => {
       return {
         ...state,
         movies: action.movies
+      }
+    case ReducerTypes.FETCH_MOVIE:
+      return {
+        ...state,
+        movie: action.movie
       }
     default:
       return state;

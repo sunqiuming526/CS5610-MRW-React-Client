@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import {Form, FormControl} from "react-bootstrap";
 import ReducerTypes from "../reducers/ReducerTypes";
 import imdbService from "../services/ImdbService";
-import {useLocation, useHistory} from "react-router-dom"
+import {useLocation, useHistory, Link} from "react-router-dom"
 import {ACCESS_TOKEN_NAME} from "../constants/ApiConstants";
 
 const NavbarComponent = ({keyword = "", typeKeyword, searchMovies}) => {
@@ -20,9 +20,9 @@ const NavbarComponent = ({keyword = "", typeKeyword, searchMovies}) => {
 
   return (
     <Navbar bg="dark" variant="dark">
-      <Navbar.Brand href="#home">Movie Review</Navbar.Brand>
+      <Navbar.Brand as={Link} to="/">Movie Review</Navbar.Brand>
       <Nav className="mr-auto">
-        <Nav.Link href="#home">Home</Nav.Link>
+        <Nav.Link as={Link} to="/">Home</Nav.Link>
         <Nav.Link href="#features">Feature1</Nav.Link>
         <Nav.Link href="#pricing">Feature2</Nav.Link>
       </Nav>

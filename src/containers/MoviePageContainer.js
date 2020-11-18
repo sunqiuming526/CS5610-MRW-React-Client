@@ -5,22 +5,21 @@ import NavbarComponent from "../components/NavbarComponent";
 import { FETCH_MOVIES } from "../reducers/ReducerTypes";
 import ImdbService from "../services/ImdbService";
 
+const NUM_POPULAR_MOVIES = 40
+
 class MoviePageContainer extends Component {
   componentDidMount() {
     const userID = this.props.match.params.userID;
     if (userID) {
       this.props.fetchMoviesForUser(userID);
     } else {
-      this.props.fetchRandomMovies();
+      this.props.fetchPopularMovies(NUM_POPULAR_MOVIES);
     }
   }
 
   render() {
     return (
-      <div>
-        <NavbarComponent />
-        <MovieGridComponent movies={this.props.movies} />
-      </div>
+      <MovieGridComponent movies={this.props.movies} />
     );
   }
 }
@@ -34,8 +33,8 @@ const dispatchToProps = (dispatch) => ({
     ImdbService.fetchMoviesForUser(userID).then((movies) =>
       dispatch({ type: FETCH_MOVIES, movies })
     ),
-  fetchRandomMovies: () =>
-    ImdbService.fetchRandomMovies().then((movies) =>
+  fetchPopularMovies: (numMovies) =>
+    ImdbService.fetchPopularMovies(numMovies).then((movies) =>
       dispatch({ type: FETCH_MOVIES, movies })
     ),
 });
