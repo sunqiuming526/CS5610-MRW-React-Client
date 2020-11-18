@@ -6,8 +6,10 @@ import {withRouter} from "react-router-dom";
 
 function RegistrationForm(props) {
   const [state, setState] = useState({
+    username: "",
     email: "",
     password: "",
+    role: "",
     confirmPassword: "",
     successMessage: null
   })
@@ -22,10 +24,12 @@ function RegistrationForm(props) {
     if (state.email.length && state.password.length) {
       props.showError(null);
       const payload = {
+        "username": state.username,
         "email": state.email,
         "password": state.password,
+        "role": state.role
       }
-      axios.post(API_BASE_URL + '/user/register', payload)
+      axios.post(API_BASE_URL + '/user/signup', payload)
         .then(function (response) {
           if (response.status === 200) {
             setState(prevState => ({
@@ -67,6 +71,17 @@ function RegistrationForm(props) {
     <div className="card col-12 col-lg-4 login-card mt-2 hv-center">
       <form>
         <div className="form-group text-left">
+          <label htmlFor="exampleInputUserName">Username</label>
+          <input type="text"
+                 className="form-control"
+                 id="username"
+                 placeholder="Enter Username"
+                 value={state.username}
+                 onChange={handleChange}
+          />
+
+        </div>
+        <div className="form-group text-left">
           <label htmlFor="exampleInputEmail1">Email address</label>
           <input type="email"
                  className="form-control"
@@ -97,6 +112,16 @@ function RegistrationForm(props) {
                  value={state.confirmPassword}
                  onChange={handleChange}
           />
+        </div>
+        <div className="form-group text-left">
+          <label htmlFor="exampleSelectRole">Role</label>
+          <select className="form-control"
+                 id="role"
+                 onChange={handleChange}>
+            <option value="admin">Administrator</option>
+            <option value="user">User</option>
+            <option value="publisher">Publisher</option>
+          </select>
         </div>
         <button
           type="submit"

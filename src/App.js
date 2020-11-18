@@ -9,6 +9,9 @@ import NavbarComponent from "./components/NavbarComponent";
 import MovieListComponent from "./components/MovieListComponent";
 import RegistrationForm from "./components/Login/RegistrationForm/RegistrationForm";
 import AlertComponent from "./components/Login/AlertComponent/AlertComponent";
+import PrivateRoute from "./utils/PrivateRoute";
+import UserProfile from "./components/UserHomePage";
+import LoginForm from "./components/Login/LoginForm/LoginForm";
 
 function App() {
   const [title, updateTitle] = useState(null)
@@ -25,6 +28,12 @@ function App() {
             <Route path="/register">
               <RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>
             </Route>
+            <Route path="/login">
+              <LoginForm showError={updateErrorMessage} updateTitle={updateTitle}/>
+            </Route>
+            <PrivateRoute path="/home">
+              <UserProfile/>
+            </PrivateRoute>
           </Switch>
           <AlertComponent errorMessage={errorMessage} hideError={updateErrorMessage}/>
         </div>
