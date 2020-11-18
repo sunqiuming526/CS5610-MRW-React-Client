@@ -1,9 +1,15 @@
+import { extractCastID } from "./utils";
+const apiKey = "b3721fd8d8mshb6df83063eb73e8p11054fjsnb4d2c2322b3b";
+const tmdbApiKey = "a41a171fff9eb512b2a0d0fe15d3405f";
+const tmdbApiReadAccessToken =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNDFhMTcxZmZmOWViNTEyYjJhMGQwZmUxNWQzNDA1ZiIsInN1YiI6IjVmYjRhOGJiOWNhNzU5MDAzZjRmNjZjNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UvPomt3YxXPsbeE0Lm03taAncW1lDlKM2omv0Yip80Q";
+
 function findByTitle(title) {
   return fetch(`https://imdb8.p.rapidapi.com/title/find?q=${title}`, {
     method: "GET",
     headers: {
       "x-rapidapi-host": "imdb8.p.rapidapi.com",
-      "x-rapidapi-key": "a3e3d3a245msh70feee16c310b62p1338d2jsne7410931c6e1",
+      "x-rapidapi-key": apiKey,
     },
   })
     .then((response) => {
@@ -21,61 +27,46 @@ function findByTitle(title) {
     });
 }
 
+async function fetchMovieByID(movieID) {
+  const movieRes = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieID}?api_key=${tmdbApiKey}`,
+    {
+      method: "GET",
+    }
+  );
+  let movie = await movieRes.json();
+  const creditsRes = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${tmdbApiKey}`,
+    {
+      method: "GET",
+    }
+  );
+  let credits = await creditsRes.json();
+  movie.casts = credits.cast;
+  console.log(JSON.stringify(movie))
+  return movie;
+}
+
 function findMoviesByUser(userID) {
   return Promise.resolve([]);
 }
 
-function fetchRandomMovies() {
-  return Promise.resolve([
+async function fetchPopularMovies(num) {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/movie/popular?api_key=${tmdbApiKey}`,
     {
-      id: "tt0944947",
-      title: "Game of throne",
-      rating: 4.8,
-      posterUrl:
-        "https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_.jpg",
-      releaseYear: 2011,
-    },
-    {
-      id: "tt0944947",
-      title: "Game of throne",
-      rating: 4.8,
-      posterUrl:
-        "https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_.jpg",
-      releaseYear: 2011,
-    },
-    {
-      id: "tt0944947",
-      title: "Game of throne",
-      rating: 4.8,
-      posterUrl:
-        "https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_.jpg",
-      releaseYear: 2011,
-    },
-    {
-      id: "tt0944947",
-      title: "Game of throne",
-      rating: 4.8,
-      posterUrl:
-        "https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_.jpg",
-      releaseYear: 2011,
-    },
-    {
-      id: "tt0944947",
-      title: "Game of throne",
-      rating: 4.8,
-      posterUrl:
-        "https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_.jpg",
-      releaseYear: 2011,
-    },
-    {
-      id: "tt0944947",
-      title: "Game of throne",
-      rating: 4.8,
-      posterUrl:
-        "https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_.jpg",
-      releaseYear: 2011,
-    },
-  ]);
+      method: "GET",
+    }
+  );
+  const payload = await res.json();
+  return payload.results.slice(0, num);
 }
 
-export default { findByTitle, findMoviesByUser, fetchRandomMovies };
+const service = {
+  findByTitle,
+  findMoviesByUser,
+  fetchPopularMovies,
+  fetchMovieByID,
+};
+
+export default service;

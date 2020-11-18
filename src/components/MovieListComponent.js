@@ -1,5 +1,4 @@
 import React from "react"
-import imdbService from "../services/ImdbService"
 import {connect} from "react-redux";
 import ReducerTypes from "../reducers/ReducerTypes";
 
