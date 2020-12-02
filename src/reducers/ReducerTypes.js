@@ -6,6 +6,10 @@ export const FIND_MOVIES_BY_TITLE = "FIND_MOVIES_BY_TITLE";
 export const FETCH_MOVIES = "FETCH_MOVIES";
 // Fetch details of a given movie.
 export const FETCH_MOVIE = "FETCH_MOVIE";
+export const FIND_ARTICLES_BY_KEYWORD = " FIND_ARTICLES_BY_KEYWORD";
+export const FETCH_ARTICLES = "FETCH_ARTICLES";
+export const FETCH_ARTICLE = "FETCH_ARTICLE";
+export const FETCH_ARTICLES_BY_AUTHOR = "FETCH_ARTICLES_BY_AUTHOR"
 
 const actions = {
   SEARCH_KEYWORD,
@@ -13,6 +17,9 @@ const actions = {
   FIND_MOVIES_BY_TITLE,
   FETCH_MOVIES,
   FETCH_MOVIE,
+  FETCH_ARTICLES,
+  FETCH_ARTICLE,
+  FETCH_ARTICLES_BY_AUTHOR
 };
 
 export default actions;
