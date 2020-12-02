@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import ArticleGridComponent from "../components/article/ArticleGridComponent";
 import articleService from "../services/articleService";
-import articleReducer from "../reducers/ArticleReducer"
-import {BrowserRouter, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {FETCH_ARTICLES} from "../reducers/ReducerTypes";
+import '../css/style.css'
 
 class ArticlePageContainer extends React.Component{
     state = {
@@ -12,27 +12,29 @@ class ArticlePageContainer extends React.Component{
         article: {},
         isAuthor: false,
         AuthorName: "",
-
     }
     componentDidMount() {
-        const userID = this.props.match.params.userID;
-        if (userID) {
+        const userId = this.props.match.params.userId;
+        if (userId) {
             // check if the user type is author, if true, get the author name
+            this.state.isAuthor = true;
         }
-        this.props.fetchAllArticles();
+        this.props.findAllArticles();
     }
 
     render() {
         return (
             <div>
+                <div className="sticky-box">
                 {
                     this.state.isAuthor &&
                     <Link to="/edit">
-                        <button className="btn-primary">
-                            Add
+                        <button type="button" className="btn btn-success float-left">
+                            Add Article
                         </button>
                     </Link>
                 }
+                </div>
                 <ArticleGridComponent articles={this.props.articles}/>
             </div>
         );
@@ -45,10 +47,12 @@ const stateToPropertyMapper = (state) => ({
 
 const propertyToDispatchMapper = (dispatch) => ({
     // get the author name
-    fetchAllArticles: () => {
+    findAllArticles: () => {
         articleService.findAllArticles()
             .then((articles) => dispatch({type: FETCH_ARTICLES, articles}));
-    }
+    },
+
+
 })
 
 

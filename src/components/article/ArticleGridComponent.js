@@ -6,12 +6,10 @@ const ArticleGridComponent = ({articles}) => {
     return (
         <Container fluid>
             <Row>
-                {articles.map(({id, title, author}) => (
+                {articles.map( article => (
                     <Col xl={2} lg={3} md={4} sm={6} xs={12}>
                         <ArticleCardComponent
-                            id={id}
-                            title={title}
-                            author={author}
+                            article = {article}
                         />
                     </Col>
                 ))}
