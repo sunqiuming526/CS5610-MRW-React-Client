@@ -1,4 +1,4 @@
-import {FIND_ARTICLES_BY_KEYWORD, FETCH_ARTICLES, FETCH_ARTICLE, FETCH_ARTICLES_BY_AUTHOR} from "./ReducerTypes";
+import {FIND_ARTICLES_BY_KEYWORD, FETCH_ARTICLES, FETCH_ARTICLE, FETCH_ARTICLES_BY_AUTHOR, FETCH_ARTICLE_BY_ID} from "./ReducerTypes";
 
 const initialState = {
     articles: [],
@@ -26,6 +26,11 @@ const ArticleReducer = (state = initialState, action) => {
             return {
                 ...state,
                 articles: action.articles
+            }
+        case FETCH_ARTICLE_BY_ID:
+            return {
+                ...state,
+                article: action.article
             }
         default:
             return state;

@@ -4,8 +4,18 @@ const findAllArticles = () =>
     fetch(url)
         .then(response => response.json())
 
-const findArticleByAuthor= (userId) =>
-    fetch(`${url}/${userId}`)
+const findArticleById = (articleId) =>{
+    return fetch(`${url}/${articleId}`)
+        .then(response => {
+            var x = response.json();
+            console.log("jintao " + x);
+            return x;
+        })
+}
+
+
+const findArticlesByAuthor= (userId) =>
+    fetch(`${url}/${userId}/allArticles`)
         .then(response => response.json())
 
 const createArticle = (newArticle) =>
@@ -43,7 +53,8 @@ const searchByTitle = (keyWord) => {
 
 export default {
     findAllArticles,
-    findArticleByAuthor,
+    findArticleById,
+    findArticlesByAuthor,
     createArticle,
     deleteArticle,
     updateArticle,
