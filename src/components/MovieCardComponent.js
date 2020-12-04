@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const MovieCardComponent = ({ id, title, rating, posterUrl, releaseYear }) => {
   return (
-    <Card style={{ width: "18rem" }} className="m-4" border="primary">
+    <Card  className="m-0" border="primary">
       <Card.Img variant="top" src={posterUrl} />
       <Card.Body>
         <Card.Title>{title}</Card.Title>

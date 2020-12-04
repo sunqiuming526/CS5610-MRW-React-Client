@@ -8,12 +8,12 @@ const MovieGridComponent = ({ movies }) => {
     <Container fluid>
       <Row>
         {movies.map(({ id, title, vote_average, poster_path, release_date }) => (
-          <Col xl={2} lg={3} md={4} sm={6} xs={12}>
+          <Col xl={2} lg={3} md={4} sm={6} xs={12} key={id}>
             <MovieCardComponent
               id={id}
               title={title}
               rating={vote_average}
-              posterUrl={getPosterFullUrl(IMAGE_SIZE.md, poster_path)}
+              posterUrl={getPosterFullUrl(IMAGE_SIZE.lg, poster_path)}
               releaseYear={release_date}
             />
           </Col>

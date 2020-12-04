@@ -5,7 +5,7 @@ const UserProfile = ({user}) => {
     <div id="profile">
       <h5 className="mb-3">User Profile</h5>
       <div className="row">
-        <div className="col-md-6">
+        <div className="col-12">
           <h6>Username</h6>
           <p>
             {user.username}
@@ -18,11 +18,6 @@ const UserProfile = ({user}) => {
           <p>
             {user.role}
           </p>
-        </div>
-        <div className="col-md-6">
-          <h6>Recent Comments</h6>
-          <hr/>
-          <h6>Recent Collections</h6>
         </div>
 
       </div>

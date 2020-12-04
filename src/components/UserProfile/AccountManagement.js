@@ -7,7 +7,7 @@ const AccountManagement = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get(`${API_BASE_URL}/user`, {})
+    axios.get(`${API_BASE_URL}/users`, {})
       .then(res => {
         setUsers(res.data)
       })

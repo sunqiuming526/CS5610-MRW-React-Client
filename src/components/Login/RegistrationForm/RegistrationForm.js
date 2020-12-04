@@ -29,7 +29,7 @@ function RegistrationForm(props) {
         "password": state.password,
         "role": state.role
       }
-      axios.post(API_BASE_URL + '/user/signup', payload)
+      axios.post(API_BASE_URL + '/users/signup', payload)
         .then(function (response) {
           if (response.status === 200) {
             setState(prevState => ({
@@ -120,7 +120,7 @@ function RegistrationForm(props) {
                  onChange={handleChange}>
             <option value="admin">Administrator</option>
             <option value="user">User</option>
-            <option value="publisher">Publisher</option>
+            <option value="author">Author</option>
           </select>
         </div>
         <button

@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Link, Router, Route, Switch} from "react-router-dom";
 
@@ -15,11 +15,26 @@ import {createBrowserHistory} from "history";
 
 import MoviePageContainer from "./containers/MoviePageContainer";
 import MovieDetailsPage from "./containers/movie-details/MovieDetailsPage";
+import axios from "axios";
+import {ACCESS_TOKEN_NAME, API_BASE_URL} from "./constants/ApiConstants";
 
 
 function App() {
   const [title, updateTitle] = useState(null)
   const [errorMessage, updateErrorMessage] = useState(null)
+  const [user, setUser] = useState({username: '1'});
+
+  useEffect(() => {
+    axios.get(API_BASE_URL + '/users/me', {headers: {'token': localStorage.getItem(ACCESS_TOKEN_NAME)}})
+      .then(function (response) {
+        if (response.status == 200) {
+          setUser(response.data)
+        }
+      })
+      .catch(function (error) {
+        console.log(error)
+      });
+  }, [])
 
   return (
     <BrowserRouter>
@@ -28,19 +43,22 @@ function App() {
         {/*<MovieListComponent/>*/}
         <div className="container-fluid d-flex align-items-center flex-column">
           {/*<Router history={createBrowserHistory()}>*/}
-            <Switch>
-              <Route path={["/"]} exact component={MoviePageContainer}/>
-              <Route path={"/movies/:movieID"} exact component={MovieDetailsPage}/>
-              <Route path="/register">
-                <RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>
-              </Route>
-              <Route path="/login">
-                <LoginForm showError={updateErrorMessage} updateTitle={updateTitle}/>
-              </Route>
-              <PrivateRoute path="/home">
-                <UserProfile/>
-              </PrivateRoute>
-            </Switch>
+          <Switch>
+            <Route path={["/"]} exact component={MoviePageContainer}/>
+            <Route path={"/movies/:movieID"} exact render={(props) => <MovieDetailsPage {...props} curUser={user}/>}/>
+            <Route path="/register">
+              <RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>
+            </Route>
+            <Route path="/login">
+              <LoginForm showError={updateErrorMessage} updateTitle={updateTitle}/>
+            </Route>
+            <PrivateRoute path="/home">
+              <UserProfile/>
+            </PrivateRoute>
+            <Route path="/users/:userId">
+              <UserProfile/>
+            </Route>
+          </Switch>
           {/*</Router>*/}
           <AlertComponent errorMessage={errorMessage} hideError={updateErrorMessage}/>
         </div>

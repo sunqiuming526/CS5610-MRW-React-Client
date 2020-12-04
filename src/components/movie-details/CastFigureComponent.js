@@ -1,15 +1,15 @@
 import React from "react";
-import { getPosterFullUrl, IMAGE_SIZE } from "../../services/utils";
+import {getPosterFullUrl, IMAGE_SIZE} from "../../services/utils";
 
-const CastFigureComponent = ({ cast }) => {
+const CastFigureComponent = ({cast}) => {
   return (
-    <figure class="figure">
+    <figure className="figure">
       <img
         src={getPosterFullUrl(IMAGE_SIZE.sm, cast.profile_path)}
-        class="figure-img img-fluid rounded"
+        className="figure-img img-fluid rounded"
         alt={cast.name}
       />
-      <figcaption class="figure-caption">{cast.character}</figcaption>
+      <figcaption className="figure-caption">{cast.character}</figcaption>
     </figure>
   );
 };

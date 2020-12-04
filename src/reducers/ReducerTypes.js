@@ -6,13 +6,15 @@ export const FIND_MOVIES_BY_TITLE = "FIND_MOVIES_BY_TITLE";
 export const FETCH_MOVIES = "FETCH_MOVIES";
 // Fetch details of a given movie.
 export const FETCH_MOVIE = "FETCH_MOVIE";
-
+// Get the current login user data
+export const GET_LOGIN_USER = "GET_LOGIN_USER"
 const actions = {
   SEARCH_KEYWORD,
   TYPE_KEYWORD,
   FIND_MOVIES_BY_TITLE,
   FETCH_MOVIES,
   FETCH_MOVIE,
+  GET_LOGIN_USER
 };
 
 export default actions;

@@ -43,7 +43,7 @@ async function fetchMovieByID(movieID) {
   );
   let credits = await creditsRes.json();
   movie.casts = credits.cast;
-  console.log(JSON.stringify(movie))
+  // console.log(JSON.stringify(movie))
   return movie;
 }
 
@@ -62,11 +62,36 @@ async function fetchPopularMovies(num) {
   return payload.results.slice(0, num);
 }
 
+async function fetchMoviesByTitle(title) {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&query=${title}`,
+    {
+      method: "GET",
+    }
+  );
+  const payload = await res.json();
+  return payload.results;
+}
+
+const getMovieNameById = async (movieId) => {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}?api_key=${tmdbApiKey}&language=en-US`,
+    {
+      method: "GET",
+    }
+  )
+  const movieDetails = await res.json()
+  return movieDetails.title;
+}
+
+
 const service = {
   findByTitle,
   findMoviesByUser,
   fetchPopularMovies,
   fetchMovieByID,
+  fetchMoviesByTitle,
+  getMovieNameById
 };
 
 export default service;
