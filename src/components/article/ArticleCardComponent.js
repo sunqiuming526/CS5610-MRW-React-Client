@@ -20,9 +20,19 @@ class ArticleCardComponent extends React.Component{
                     <Card.Subtitle className="mb-2 text-muted">
                         Default Author
                     </Card.Subtitle>
-                    <Link to={`/articles/${this.props.article._id}`}>
-                        <Button variant="primary">Details</Button>
-                    </Link>
+                    {
+                        this.props.userId === this.props.article.authorId &&
+                        <Link to={`/${this.props.userId}/articles/${this.props.article._id}`}>
+                            <Button variant="primary">Details</Button>
+                        </Link>
+                    }
+                    {
+                        this.props.userId !== this.props.article.authorId &&
+                        <Link to={`/articles/${this.props.article._id}`}>
+                            <Button variant="primary">Details</Button>
+                        </Link>
+                    }
+
                     {
                         this.props.userId === this.props.article.authorId &&
                         <button className="float-right"

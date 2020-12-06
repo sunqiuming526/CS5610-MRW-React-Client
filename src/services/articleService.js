@@ -7,9 +7,7 @@ const findAllArticles = () =>
 const findArticleById = (articleId) =>{
     return fetch(`${url}/${articleId}`)
         .then(response => {
-            var x = response.json();
-            console.log("jintao " + x);
-            return x;
+            return response.json();
         })
 }
 
@@ -34,15 +32,18 @@ const deleteArticle = (articleId) =>
         method: 'DELETE'
     }).then(response => response.json())
 
-const updateArticle = (articleId, newArticle) => {
+const updateArticle = (articleId, newArticle) =>
     fetch(`${url}/${articleId}`, {
         method:'PUT',
         body: JSON.stringify(newArticle),
         headers: {
             'content-type': 'application/json'
         }
-    }).then(response => response.json())
-}
+    }).then(response => {
+        //console.log(response.json());
+        return response.json()
+    })
+
 
 const searchByTitle = (keyWord) => {
     return findAllArticles.then((response) => {

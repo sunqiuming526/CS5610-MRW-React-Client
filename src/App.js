@@ -21,7 +21,6 @@ function App() {
           <Route path={"/:userId/articles"} exact component={ArticlePageContainer} />
           <Route path={"/articles/:articleId"} exact component={ArticleDetailsComponent} />
           <Route path={"/:userId/articles/:articleId"} exact component={ArticleDetailsComponent} />
-          <Route path={"/:userId/articles/edit"} exact component={ArticlePageContainer} />
         </Switch>
       </Router>
     </div>

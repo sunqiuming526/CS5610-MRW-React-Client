@@ -30,7 +30,7 @@ class ArticlePageContainer extends React.Component{
                 {
                     this.state.isAuthor &&
                     <button type="button" className="btn btn-success float-left"
-                            onClick={()=>this.props.addArticle(this.state)}>
+                            onClick={()=>this.props.addArticle(this.state.userId)}>
                         Add Article
                     </button>
                 }
@@ -54,12 +54,12 @@ const propertyToDispatchMapper = (dispatch) => ({
             .then((articles) => dispatch({type: FETCH_ARTICLES, articles}));
     },
 
-    addArticle: (state) =>{
+    addArticle: (userId) =>{
         //console.log(state)
         const newArticle = {
             title: 'New Article',
             text: 'Please write your article here.',
-            authorId: state.userId
+            authorId: userId
         }
         articleService.createArticle(newArticle)
             .then(actualArticle => dispatch({type: ADD_ARTICLE, article: actualArticle}));

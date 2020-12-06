@@ -36,6 +36,14 @@ const ArticleReducer = (state = initialState, action) => {
                 ...state,
                 articles: state.articles.filter(article => article._id !== action.article._id)
             }
+        case UPDATE_ARTICLE:
+            console.log(action.article.editing);
+            return {
+                ...state,
+                articles: state.articles.map(
+                    article => article._id === action.article._id ?
+                        action.article : article)
+            }
         case ADD_ARTICLE:
             return {
                 ...state,
