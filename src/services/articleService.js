@@ -47,7 +47,7 @@ const updateArticle = (articleId, newArticle) =>
 
 const searchByTitle = (keyWord) => {
     return findAllArticles.then((response) => {
-        console.log(response.results);
+        //console.log(response.results);
         return response.results.filter((item)=> item.title.includes(keyWord))
     })
 }

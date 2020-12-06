@@ -1,14 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import articleService from "../services/articleService";
-import {FETCH_ARTICLE_BY_ID, FETCH_ARTICLES, UPDATE_ARTICLE} from "../reducers/ReducerTypes";
+import {FETCH_ARTICLE_BY_ID, FETCH_ARTICLES, ON_CHANGE, UPDATE_ARTICLE} from "../reducers/ReducerTypes";
 
 class ArticleDetailsComponent extends React.Component {
     state = {
         isAuthor: false,
         userId: "",
         articleId: "",
-        article: this.props.article,
         editing: false
     }
 
@@ -17,14 +16,21 @@ class ArticleDetailsComponent extends React.Component {
     }
 
     componentDidMount() {
-        //console.log('fanqi'+this.state.editing);
+        console.log('fanqi'+this.state.editing);
         this.state.articleId = this.props.match.params.articleId;
-        this.props.findArticleById(this.state.articleId);
-        this.state.userId = this.props.match.params.userId;
-        if (this.state.userId === this.props.article.authorId) {
-            this.state.isAuthor = true;
-        }
-
+        console.log(this.state.articleId)
+        this.props.findArticleById(this.state.articleId)
+            .then(()=>{
+                this.state.userId = this.props.match.params.userId;
+                console.log(this.props.match.params.userId);
+                console.log(this.props.article);
+                if (this.props.match.params.userId == this.props.article.authorId) {
+                    //this.state.isAuthor = true;
+                    this.setState({isAuthor: true})
+                    console.log("success")
+                }
+            });
+        //console.log(this.props.article)
     }
 
     render(){
@@ -42,7 +48,7 @@ class ArticleDetailsComponent extends React.Component {
                     this.state.editing &&
                     <button type="button" className="btn btn-primary float-left"
                             onClick={() => {
-                                articleService.updateArticle(this.state.article._id, this.state.article)
+                                articleService.updateArticle(this.props.article._id, this.props.article)
                                     .then(status => this.setState({editing: false}))
                             }}>
                         Save
@@ -51,20 +57,25 @@ class ArticleDetailsComponent extends React.Component {
             </div>
             {
                 !this.state.editing &&
-                <h1>{this.state.article.title}</h1>
+                <h1>{this.props.article.title}</h1>
             }
             {
                 !this.state.editing &&
-                <p>{this.state.article.text}</p>
+                <p>{this.props.article.text}</p>
             }
             {
                 this.state.editing &&
                 <input className="form-control inner-box-margin" placeholder="Please input the article title"
-                       onChange={(event) =>
-                           this.setState(preState => ({
-                           article:{...preState.article, title: event.target.value}
-                       }))}
-                       value={this.state.article.title}/>
+                       // onChange={(event) =>
+                       //     this.setState(preState => ({
+                       //     article:{...preState.article, title: event.target.value}
+                       // }))}
+                        onChange={(event)=>
+                            this.props.updateOnchange({
+                                ...this.props.article,
+                                title: event.target.value
+                            })}
+                       value={this.props.article.title}/>
 
             }
             {
@@ -72,10 +83,11 @@ class ArticleDetailsComponent extends React.Component {
                     <textarea className="form-control" id="text-content" rows="20"
                               placeholder="Please input the article text"
                               onChange={(event) =>
-                                  this.setState(preState => ({
-                                      article:{...preState.article, text: event.target.value}
-                                  }))}
-                              value={this.state.article.text}>
+                                  this.props.updateOnchange({
+                                      ...this.props.article,
+                                      text: event.target.value
+                                  })}
+                              value={this.props.article.text}>
                     </textarea>
             }
 
@@ -90,11 +102,16 @@ const stateToPropertyMapper = (state) => ({
 const propertyToDispatchMapper = (dispatch) => ({
 
     findArticleById: (articleId) => {
-        articleService.findArticleById(articleId)
+        return articleService.findArticleById(articleId)
             .then((article) => {
                 dispatch({type: FETCH_ARTICLE_BY_ID, article})
             });
     },
+
+    updateOnchange: (article) => dispatch({
+        type: ON_CHANGE,
+        article: article
+    }),
 
 });
 

@@ -1,6 +1,6 @@
 import {FIND_ARTICLES_BY_KEYWORD, FETCH_ARTICLES, FETCH_ARTICLE,
     FETCH_ARTICLES_BY_AUTHOR, FETCH_ARTICLE_BY_ID,
-    ADD_ARTICLE, UPDATE_ARTICLE, DELETE_ARTICLE} from "./ReducerTypes";
+    ADD_ARTICLE, UPDATE_ARTICLE, DELETE_ARTICLE, ON_CHANGE} from "./ReducerTypes";
 
 const initialState = {
     articles: [],
@@ -15,7 +15,7 @@ const ArticleReducer = (state = initialState, action) => {
                 articles: action.articles
             }
         case FETCH_ARTICLES:
-            console.log(action.articles);
+            //console.log(action.articles);
             return {
                 ...state,
                 articles: action.articles
@@ -37,12 +37,17 @@ const ArticleReducer = (state = initialState, action) => {
                 articles: state.articles.filter(article => article._id !== action.article._id)
             }
         case UPDATE_ARTICLE:
-            console.log(action.article.editing);
+            //console.log(action.article.editing);
             return {
                 ...state,
                 articles: state.articles.map(
                     article => article._id === action.article._id ?
                         action.article : article)
+            }
+        case ON_CHANGE:
+            return {
+                ...state,
+                article: action.article
             }
         case ADD_ARTICLE:
             return {

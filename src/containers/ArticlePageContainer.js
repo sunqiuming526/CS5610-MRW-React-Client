@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import ArticleGridComponent from "../components/article/ArticleGridComponent";
 import articleService from "../services/articleService";
-import {Link} from "react-router-dom";
 import {ADD_ARTICLE, DELETE_ARTICLE, FETCH_ARTICLES} from "../reducers/ReducerTypes";
 import '../css/style.css'
 
@@ -15,13 +14,27 @@ class ArticlePageContainer extends React.Component{
         userId: ""
     }
     componentDidMount() {
-        this.state.userId = this.props.match.params.userId;
+        //this.setState({userId: this.props.match.params.userId});
+        this.state.userId = this.props.match.params.userId
         if (this.state.userId) {
             // check if the user type is author, if true, get the author name
             this.state.isAuthor = true;
         }
         this.props.findAllArticles();
+        console.log("articles in props: " + this.props.articles.length)
+        console.log("articles in state: " + this.state.articles.length)
+        console.log("userId" + this.state.userId)
     }
+    componentDidUpdate(prevProps, prevState, snapshot){
+        this.props.findAllArticles();
+    }
+
+    // deleteArticle = (article) => {
+    //     articleService.deleteArticle(article._id)
+    //         .then(state => this.setState(prevState => ({
+    //             articles: prevState.articles.filter(a => a._id !== article._id)
+    //         })))
+    // }
 
     render() {
         return (

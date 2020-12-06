@@ -35,10 +35,12 @@ class ArticleCardComponent extends React.Component{
 
                     {
                         this.props.userId === this.props.article.authorId &&
-                        <button className="float-right"
-                           onClick={()=> this.props.deleteArticle(this.props.article)}>
+                        <i className="float-right"
+                           onClick={()=> {
+                               return this.props.deleteArticle(this.props.article)
+                           }}>
                             <FontAwesomeIcon icon={faTrash}/>
-                        </button>
+                        </i>
                     }
                 </Card.Body>
             </Card>

@@ -14,6 +14,7 @@ export const FETCH_ARTICLE_BY_ID = "FETCH_ARTICLE_BY_ID";
 export const ADD_ARTICLE = "ADD_ARTICLE";
 export const UPDATE_ARTICLE = "UPDATE_ARTICLE";
 export const DELETE_ARTICLE = "DELETE_ARTICLE";
+export const ON_CHANGE = "ON_CHANGE";
 
 const actions = {
   SEARCH_KEYWORD,
@@ -28,6 +29,7 @@ const actions = {
   ADD_ARTICLE,
   UPDATE_ARTICLE,
   DELETE_ARTICLE,
+  ON_CHANGE
 };
 
 export default actions;
