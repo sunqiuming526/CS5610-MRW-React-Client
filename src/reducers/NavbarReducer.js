@@ -14,6 +14,11 @@ const NavBarReducer = (state = initialState, action) => {
         ...state,
         keyword: action.keyword
       }
+    case ReducerTypes.UPDATE_SEARCH_TYPE:
+      return {
+        ...state,
+        searchType: action.searchType
+      }
     default:
       return state;
   }

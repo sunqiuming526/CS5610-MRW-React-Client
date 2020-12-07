@@ -15,6 +15,7 @@ export const ADD_ARTICLE = "ADD_ARTICLE";
 export const UPDATE_ARTICLE = "UPDATE_ARTICLE";
 export const DELETE_ARTICLE = "DELETE_ARTICLE";
 export const ON_CHANGE = "ON_CHANGE";
+export const UPDATE_SEARCH_TYPE = "UPDATE_SEARCH_TYPE"
 
 const actions = {
   SEARCH_KEYWORD,
@@ -29,7 +30,8 @@ const actions = {
   ADD_ARTICLE,
   UPDATE_ARTICLE,
   DELETE_ARTICLE,
-  ON_CHANGE
+  ON_CHANGE,
+  UPDATE_SEARCH_TYPE
 };
 
 export default actions;

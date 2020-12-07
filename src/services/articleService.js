@@ -30,7 +30,8 @@ const createArticle = (newArticle) =>
 const deleteArticle = (articleId) =>
     fetch(`${url}/${articleId}`, {
         method: 'DELETE'
-    }).then(response => response.json())
+    }).then(response => articleId)
+
 
 const updateArticle = (articleId, newArticle) =>
     fetch(`${url}/${articleId}`, {
@@ -45,10 +46,10 @@ const updateArticle = (articleId, newArticle) =>
     })
 
 
-const searchByTitle = (keyWord) => {
-    return findAllArticles.then((response) => {
-        //console.log(response.results);
-        return response.results.filter((item)=> item.title.includes(keyWord))
+const findArticlesByTitle = (keyWord) => {
+    return findAllArticles().then((response) => {
+        //console.log(response);
+        return response.filter((item)=> item.title.includes(keyWord))
     })
 }
 
@@ -59,5 +60,5 @@ export default {
     createArticle,
     deleteArticle,
     updateArticle,
-    searchByTitle
+    findArticlesByTitle
 }

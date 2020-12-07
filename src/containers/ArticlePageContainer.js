@@ -2,8 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import ArticleGridComponent from "../components/article/ArticleGridComponent";
 import articleService from "../services/articleService";
-import {ADD_ARTICLE, DELETE_ARTICLE, FETCH_ARTICLES} from "../reducers/ReducerTypes";
+import {ADD_ARTICLE, DELETE_ARTICLE, FETCH_ARTICLES, FIND_ARTICLES_BY_KEYWORD} from "../reducers/ReducerTypes";
 import '../css/style.css'
+import NavbarComponent from "../components/NavbarComponent";
 
 class ArticlePageContainer extends React.Component{
     state = {
@@ -25,20 +26,12 @@ class ArticlePageContainer extends React.Component{
         console.log("articles in state: " + this.state.articles.length)
         console.log("userId" + this.state.userId)
     }
-    componentDidUpdate(prevProps, prevState, snapshot){
-        this.props.findAllArticles();
-    }
 
-    // deleteArticle = (article) => {
-    //     articleService.deleteArticle(article._id)
-    //         .then(state => this.setState(prevState => ({
-    //             articles: prevState.articles.filter(a => a._id !== article._id)
-    //         })))
-    // }
 
     render() {
         return (
             <div>
+                {/*<NavbarComponent findArticlesByTitle={this.props.findArticlesByTitle}/>*/}
                 <div className="sticky-box">
                 {
                     this.state.isAuthor &&
@@ -80,8 +73,19 @@ const propertyToDispatchMapper = (dispatch) => ({
 
     deleteArticle: (article) => {
         articleService.deleteArticle(article._id)
-            .then(article => dispatch({type: DELETE_ARTICLE, article}))
+            .then(articleId => {
+                //console.log("delete " + articleId);
+                return dispatch({type: DELETE_ARTICLE, articleId})
+            })
     },
+
+    findArticlesByTitle: (keyword) => {
+        articleService.findArticlesByTitle(keyword)
+            .then((articles) => dispatch({
+                type:FIND_ARTICLES_BY_KEYWORD,
+                articles
+            }))
+    }
 })
 
 
