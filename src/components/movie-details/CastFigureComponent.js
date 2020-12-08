@@ -9,6 +9,7 @@ const CastFigureComponent = ({ cast }) => {
         class="figure-img img-fluid rounded"
         alt={cast.name}
       />
+      <figcaption class="figure-caption"><strong>{cast.name}</strong></figcaption>
       <figcaption class="figure-caption">{cast.character}</figcaption>
     </figure>
   );
