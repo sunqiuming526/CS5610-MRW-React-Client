@@ -3,7 +3,6 @@ import './App.css';
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Link, Router, Route, Switch} from "react-router-dom";
-
 import NavbarComponent from "./components/NavbarComponent";
 import MovieListComponent from "./components/MovieListComponent";
 import RegistrationForm from "./components/Login/RegistrationForm/RegistrationForm";
@@ -12,11 +11,12 @@ import PrivateRoute from "./utils/PrivateRoute";
 import UserProfile from "./components/UserHomePage";
 import LoginForm from "./components/Login/LoginForm/LoginForm";
 import {createBrowserHistory} from "history";
-
 import MoviePageContainer from "./containers/MoviePageContainer";
 import MovieDetailsPage from "./containers/movie-details/MovieDetailsPage";
 import axios from "axios";
 import {ACCESS_TOKEN_NAME, API_BASE_URL} from "./constants/ApiConstants";
+import ArticlePageContainer from "./containers/ArticlePageContainer"
+import ArticleDetailsComponent from "./containers/ArticleDetails"
 
 
 function App() {
@@ -45,7 +45,13 @@ function App() {
           {/*<Router history={createBrowserHistory()}>*/}
           <Switch>
             <Route path={["/"]} exact component={MoviePageContainer}/>
+            <Route path={["/movies"]} exact component={MoviePageContainer}/>
             <Route path={"/movies/:movieID"} exact render={(props) => <MovieDetailsPage {...props} curUser={user}/>}/>
+            <Route path={"/articles"} exact component={ArticlePageContainer}/>
+            <Route path={"/:userId/articles"} exact component={ArticlePageContainer}/>
+            <Route path={"/articles/:articleId"} exact component={ArticleDetailsComponent}/>
+            <Route path={"/:userId/articles/:articleId"} exact component={ArticleDetailsComponent}/>
+
             <Route path="/register">
               <RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>
             </Route>

@@ -4,14 +4,20 @@ import Navbar from "react-bootstrap/cjs/Navbar";
 import Nav from "react-bootstrap/cjs/Nav";
 import Button from "react-bootstrap/Button";
 import {Form, FormControl, InputGroup, Dropdown} from "react-bootstrap";
-import ReducerTypes, {FETCH_MOVIES} from "../reducers/ReducerTypes";
+import ReducerTypes, {FETCH_MOVIES, FIND_ARTICLES_BY_KEYWORD} from "../reducers/ReducerTypes";
 import imdbService from "../services/ImdbService";
 import {useLocation, useHistory, Link} from "react-router-dom"
 import {ACCESS_TOKEN_NAME, API_BASE_URL} from "../constants/ApiConstants";
 import ImdbService from "../services/ImdbService";
 import axios from "axios";
+import articleService from "../services/articleService";
+import Select from "react-dropdown-select";
 
-const NavbarComponent = ({keyword = "", typeKeyword, fetchMoviesByTitle, loginUser, getLoginUser}) => {
+
+const NavbarComponent = (
+  {
+    keyword = "", typeKeyword, fetchMoviesByTitle, loginUser, getLoginUser, searchMovies, findArticlesByTitle,
+  }) => {
 
   let location = useLocation();
   let history = useHistory();
@@ -65,9 +71,23 @@ const NavbarComponent = ({keyword = "", typeKeyword, fetchMoviesByTitle, loginUs
           onChange={(event) => typeKeyword(event.target.value)}
           value={keyword}
         />
-        <Button variant="outline-info" onClick={() => fetchMoviesByTitle(keyword)}>
-          Search
-        </Button>
+
+        {
+          searchType === "Movie" &&
+          <Button variant="outline-info" onClick={() => {
+            history.push(`/movies?name=${keyword}`)
+            fetchMoviesByTitle(keyword)
+          }}>
+            Search
+          </Button>
+        }
+
+        {
+          searchType === "Article" &&
+          <Button variant="outline-info" onClick={() => findArticlesByTitle(keyword)}>
+            Search
+          </Button>
+        }
         {
           user.username &&
           <Button variant="outline-info" onClick={() => {
@@ -92,9 +112,11 @@ const NavbarComponent = ({keyword = "", typeKeyword, fetchMoviesByTitle, loginUs
   )
 };
 
+
 const stateToPropertyMapper = (state) => ({
   keyword: state.navBarReducer.keyword,
-  loginUser: state.navBarReducer.loginUser
+  loginUser: state.navBarReducer.loginUser,
+  searchType: state.navBarReducer.searchType
 });
 
 const propertyToDispatchMapper = (dispatch) => ({
@@ -110,6 +132,7 @@ const propertyToDispatchMapper = (dispatch) => ({
         movies: res,
       });
     }),
+
   fetchMoviesByTitle: (title) => {
     ImdbService.fetchMoviesByTitle(title).then((movies) => {
       return dispatch({type: FETCH_MOVIES, movies})
@@ -126,6 +149,19 @@ const propertyToDispatchMapper = (dispatch) => ({
       .catch(function (error) {
         console.log(error)
       });
+  },
+  findArticlesByTitle: (keyword) => {
+    articleService.findArticlesByTitle(keyword)
+      .then((articles) => dispatch({
+        type: FIND_ARTICLES_BY_KEYWORD,
+        articles
+      }))
+  },
+  updateSearchType: (type) => {
+    return dispatch({
+      type: ReducerTypes.UPDATE_SEARCH_TYPE,
+      searchType: type
+    })
   }
 });
 

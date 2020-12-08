@@ -9,8 +9,9 @@ import {Provider} from "react-redux"
 
 import navBarReducer from "./reducers/NavbarReducer";
 import movieReducer from "./reducers/MovieReducer"
+import articleReducer from "./reducers/ArticleReducer"
 
-const reducers = combineReducers({navBarReducer, movieReducer})
+const reducers = combineReducers({navBarReducer, movieReducer, articleReducer})
 const store = createStore(reducers)
 
 ReactDOM.render(

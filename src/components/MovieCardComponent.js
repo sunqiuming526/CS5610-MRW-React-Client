@@ -3,6 +3,7 @@ import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 const MovieCardComponent = ({ id, title, rating, posterUrl, releaseYear }) => {
   return (
     <Card  className="m-0" border="primary">
