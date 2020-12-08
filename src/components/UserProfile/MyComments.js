@@ -4,27 +4,38 @@ import {ACCESS_TOKEN_NAME, API_BASE_URL} from "../../constants/ApiConstants";
 import commentService from "../../services/CommentService";
 import imdbService from "../../services/ImdbService";
 import {HashLink} from "react-router-hash-link"
+import {stringify} from "query-string";
 
 const MyComment = ({user}) => {
   const [comments, setComments] = useState([]);
-  const [flag, setFlag] = useState(false);
+  const [commentMovieMap, setCommentMovieMap] = useState({});
+  const [flag, setFlag] = useState(false)
+  const updateCommentMap = (commentId, movieName) => {
+    setCommentMovieMap(prevState => ({
+      ...prevState,
+      [commentId]: movieName
+    }))
+  }
+
   useEffect(() => {
     if (user._id) {
       commentService.getCommentsForUser(user._id)
         .then(res => {
           setComments(res)
-          setFlag(true)
         })
+      setFlag(true)
     }
   }, [user])
 
   useEffect(() => {
     comments.map(curComment => imdbService.getMovieNameById(curComment.movieId)
       .then(movieName => {
-        curComment.movieName = movieName
-        setComments(prevState => prevState.map(comment => comment._id === curComment._id ? curComment : comment))
+
+        updateCommentMap(curComment._id, movieName)
+        // curComment.movieName = movieName
+        // setComments(prevState => prevState.map(comment => comment._id === curComment._id ? curComment : comment))
       }))
-  }, [flag])
+  }, [comments])
 
   return (
     <div>
@@ -51,7 +62,7 @@ const MyComment = ({user}) => {
                 </td>
                 <td>
                   <HashLink to={`/movies/${comment.movieId}/#${comment._id}`}>
-                    {comment.movieName}
+                    {commentMovieMap[comment._id]}
                   </HashLink>
                 </td>
               </tr>

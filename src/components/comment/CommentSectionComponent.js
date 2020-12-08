@@ -37,7 +37,6 @@ const CommentSectionComponent = ({curUser}) => {
           <div key={comment._id} id={comment._id}>
             <Row>
               <Col>
-                {comment._id}
                 {/*<CurrentCommentsComponent user={comment.userId[0]} comment={comment} updateCommentState={editComment}>*/}
                 <CurrentCommentsComponent user={curUser} comment={comment} updateCommentState={editComment}>
                   {!comment.editing &&

@@ -7,7 +7,7 @@ const placeholderImg =
 
 const CurrentCommentsComponent = (
   {
-    user, children, comment, updateCommentState
+    user={}, children, comment, updateCommentState
   }) => {
 
   const userOfComment = comment.userId[0]

@@ -4,14 +4,16 @@ import MovieGridComponent from "../components/MovieGridComponent";
 import NavbarComponent from "../components/NavbarComponent";
 import {FETCH_MOVIES} from "../reducers/ReducerTypes";
 import ImdbService from "../services/ImdbService";
+import queryString from 'query-string'
 
 const NUM_POPULAR_MOVIES = 40
 
 class MoviePageContainer extends Component {
   componentDidMount() {
-    const userID = this.props.match.params.userID;
-    if (userID) {
-      this.props.fetchMoviesForUser(userID);
+    const query = queryString.parse(this.props.location.search);
+    const movieKeyword = query.name;
+    if (movieKeyword) {
+      this.props.fetchMoviesByTitle(movieKeyword);
     } else {
       this.props.fetchPopularMovies(NUM_POPULAR_MOVIES);
     }
@@ -29,8 +31,8 @@ const stateToProps = (state) => ({
 });
 
 const dispatchToProps = (dispatch) => ({
-  fetchMoviesForUser: (userID) =>
-    ImdbService.fetchMoviesForUser(userID).then((movies) =>
+  fetchMoviesByTitle: (movieKeyword) =>
+    ImdbService.fetchMoviesByTitle(movieKeyword).then((movies) =>
       dispatch({type: FETCH_MOVIES, movies})
     ),
   fetchPopularMovies: (numMovies) =>

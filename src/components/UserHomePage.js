@@ -9,6 +9,7 @@ import MyComment from "./UserProfile/MyComments";
 import AccountManagement from "./UserProfile/AccountManagement";
 import Watchlist from "./UserProfile/Watchlist";
 import EditProfileComponent from "./UserProfile/EditProfileComponent";
+import ArticlePageContainer from "../containers/ArticlePageContainer";
 
 const UserHomePage = (props) => {
   const [loginUser, setLoginUser] = useState({username: ''});
@@ -90,6 +91,12 @@ const UserHomePage = (props) => {
                   Management</NavLink>
               </Nav.Item>
             }
+            {loginUser.role === 'author' &&
+            <Nav.Item>
+              <NavLink as={Link} to={`/users/${targetUser._id}/articles`}
+                       eventKey={"account-management"}>Articles</NavLink>
+            </Nav.Item>
+            }
           </Nav>
 
           <Switch>
@@ -102,6 +109,7 @@ const UserHomePage = (props) => {
             <Route path={`/users/${targetUser._id}/account-management`}>
               <AccountManagement/>
             </Route>
+            <Route path={`/users/:userId/articles`} component={ArticlePageContainer}/>
             <Route path={`/users/${targetUser._id}/watchlist`}>
               <Watchlist user={targetUser}/>
             </Route>
