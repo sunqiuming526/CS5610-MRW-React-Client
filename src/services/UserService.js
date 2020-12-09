@@ -9,9 +9,14 @@ export const updateUser = (userId, newUser) => {
     body: JSON.stringify(newUser)
   }).then(res => res.json())
 }
+export const findUserById = (userId) => {
+  return fetch(`${API_USERS_URL}/${userId}`)
+      .then(res => res.json())
+}
 
 const userService = {
-  updateUser
+  updateUser, findUserById
 }
+
 
 export default userService

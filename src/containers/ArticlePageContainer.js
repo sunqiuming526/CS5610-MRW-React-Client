@@ -4,7 +4,7 @@ import ArticleGridComponent from "../components/article/ArticleGridComponent";
 import articleService from "../services/articleService";
 import {ADD_ARTICLE, DELETE_ARTICLE, FETCH_ARTICLES, FIND_ARTICLES_BY_KEYWORD} from "../reducers/ReducerTypes";
 import '../css/style.css'
-import NavbarComponent from "../components/NavbarComponent";
+import userService from "../services/UserService";
 
 class ArticlePageContainer extends React.Component{
     state = {
@@ -12,19 +12,21 @@ class ArticlePageContainer extends React.Component{
         article: {},
         isAuthor: false,
         AuthorName: "",
-        userId: ""
+        userId: "",
+        role: ""
     }
     componentDidMount() {
         //this.setState({userId: this.props.match.params.userId});
         this.state.userId = this.props.match.params.userId
-        if (this.state.userId) {
+
+        if (this.state.userId && this.props.role === 'author') {
             // check if the user type is author, if true, get the author name
             this.state.isAuthor = true;
         }
         this.props.findAllArticles();
-        console.log("articles in props: " + this.props.articles.length)
-        console.log("articles in state: " + this.state.articles.length)
-        console.log("userId" + this.state.userId)
+        // console.log("articles in props: " + this.props.articles.length)
+        // console.log("articles in state: " + this.state.articles.length)
+        // console.log("userId" + this.state.userId)
     }
 
 
@@ -53,40 +55,51 @@ const stateToPropertyMapper = (state) => ({
     articles: state.articleReducer.articles
 })
 
-const propertyToDispatchMapper = (dispatch) => ({
-    // get the author name
-    findAllArticles: () => {
-        articleService.findAllArticles()
-            .then((articles) => dispatch({type: FETCH_ARTICLES, articles}));
-    },
+const propertyToDispatchMapper = (dispatch) => {
+    return {
+        // get the author name
+        findUserById: (userId) => {
+            userService.findUserById(userId)
+                .then(res => {
+                    var role = JSON.parse(res).role;
+                    dispatch({type: "FIND_USERROLE__BY_ID", role})
 
-    addArticle: (userId) =>{
-        //console.log(state)
-        const newArticle = {
-            title: 'New Article',
-            text: 'Please write your article here.',
-            authorId: userId
+                });
+        },
+
+        findAllArticles: () => {
+            articleService.findAllArticles()
+                .then((articles) => dispatch({type: FETCH_ARTICLES, articles}));
+        },
+
+        addArticle: (userId) => {
+            //console.log(state)
+            const newArticle = {
+                title: 'New Article',
+                text: 'Please write your article here.',
+                authorId: userId
+            }
+            articleService.createArticle(newArticle)
+                .then(actualArticle => dispatch({type: ADD_ARTICLE, article: actualArticle}));
+        },
+
+        deleteArticle: (article) => {
+            articleService.deleteArticle(article._id)
+                .then(articleId => {
+                    //console.log("delete " + articleId);
+                    return dispatch({type: DELETE_ARTICLE, articleId})
+                })
+        },
+
+        findArticlesByTitle: (keyword) => {
+            articleService.findArticlesByTitle(keyword)
+                .then((articles) => dispatch({
+                    type: FIND_ARTICLES_BY_KEYWORD,
+                    articles
+                }))
         }
-        articleService.createArticle(newArticle)
-            .then(actualArticle => dispatch({type: ADD_ARTICLE, article: actualArticle}));
-    },
-
-    deleteArticle: (article) => {
-        articleService.deleteArticle(article._id)
-            .then(articleId => {
-                //console.log("delete " + articleId);
-                return dispatch({type: DELETE_ARTICLE, articleId})
-            })
-    },
-
-    findArticlesByTitle: (keyword) => {
-        articleService.findArticlesByTitle(keyword)
-            .then((articles) => dispatch({
-                type:FIND_ARTICLES_BY_KEYWORD,
-                articles
-            }))
-    }
-})
+    };
+}
 
 
 export default connect

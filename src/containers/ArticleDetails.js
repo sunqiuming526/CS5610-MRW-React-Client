@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import articleService from "../services/articleService";
 import {FETCH_ARTICLE_BY_ID, FETCH_ARTICLES, ON_CHANGE, UPDATE_ARTICLE} from "../reducers/ReducerTypes";
+import '../css/style.css';
 
 class ArticleDetailsComponent extends React.Component {
     state = {
@@ -25,7 +26,6 @@ class ArticleDetailsComponent extends React.Component {
                 console.log(this.props.match.params.userId);
                 console.log(this.props.article);
                 if (this.props.match.params.userId == this.props.article.authorId) {
-                    //this.state.isAuthor = true;
                     this.setState({isAuthor: true})
                     console.log("success")
                 }
@@ -34,12 +34,11 @@ class ArticleDetailsComponent extends React.Component {
     }
 
     render(){
-        return<div>
+        return<div className="inputBox">
             <div className="sticky-box">
                 {
                     !this.state.editing && this.state.isAuthor &&
                     <button type="button" className="btn btn-success float-left"
-                           //onClick={() => this.props.edit(this.props.article)}>
                             onClick={() => this.setState({editing: true})}>
                         Edit
                     </button>
@@ -65,11 +64,8 @@ class ArticleDetailsComponent extends React.Component {
             }
             {
                 this.state.editing &&
-                <input className="form-control inner-box-margin" placeholder="Please input the article title"
-                       // onChange={(event) =>
-                       //     this.setState(preState => ({
-                       //     article:{...preState.article, title: event.target.value}
-                       // }))}
+                <input className="form-control inner-box-margin"
+                       placeholder="Please input the article title"
                         onChange={(event)=>
                             this.props.updateOnchange({
                                 ...this.props.article,
