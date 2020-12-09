@@ -13,11 +13,16 @@ import LoginForm from "./components/Login/LoginForm/LoginForm";
 import {createBrowserHistory} from "history";
 import MoviePageContainer from "./containers/MoviePageContainer";
 import MovieDetailsPage from "./containers/movie-details/MovieDetailsPage";
+<<<<<<< HEAD
 import ActorDetailsPage from "./containers/actor-details/ActorDetailsPage";
+import NavbarComponent from "./components/NavbarComponent";
+=======
 import axios from "axios";
 import {ACCESS_TOKEN_NAME, API_BASE_URL} from "./constants/ApiConstants";
 import ArticlePageContainer from "./containers/ArticlePageContainer"
 import ArticleDetailsComponent from "./containers/ArticleDetails"
+
+>>>>>>> cf5aa492fe336ec7a69268065af816bb2b912748
 
 function App() {
   const [title, updateTitle] = useState(null)
@@ -37,6 +42,18 @@ function App() {
   }, [])
 
   return (
+<<<<<<< HEAD
+    <div className="App">
+      <NavbarComponent />
+      <Router history={createBrowserHistory()}>
+        <Switch>
+          <Route path={["/"]} exact component={MoviePageContainer} />
+          <Route path={"/movies/:movieID"} exact component={MovieDetailsPage} />
+          <Route path={"/actors/:actorID"} exact component={ActorDetailsPage} />
+        </Switch>
+      </Router>
+    </div>
+=======
     <BrowserRouter>
       <div className="App">
         <NavbarComponent/>
@@ -47,7 +64,6 @@ function App() {
             <Route path={["/"]} exact component={MoviePageContainer}/>
             <Route path={["/movies"]} exact component={MoviePageContainer}/>
             <Route path={"/movies/:movieID"} exact render={(props) => <MovieDetailsPage {...props} curUser={user}/>}/>
-            <Route path={"/actors/:actorID"} exact component={ActorDetailsPage} />
             <Route path={"/articles"} exact component={ArticlePageContainer}/>
             <Route path={"/:userId/articles"} exact component={ArticlePageContainer}/>
             <Route path={"/articles/:articleId"} exact component={ArticleDetailsComponent}/>
@@ -71,6 +87,7 @@ function App() {
         </div>
       </div>
     </BrowserRouter>
+>>>>>>> cf5aa492fe336ec7a69268065af816bb2b912748
   );
 }
 

@@ -1,3 +1,19 @@
+<<<<<<< HEAD
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { combineReducers, createStore } from "redux";
+import { Provider } from "react-redux";
+
+import navBarReducer from "./reducers/NavbarReducer";
+import movieReducer from "./reducers/MovieReducer";
+import actorReducer from "./reducers/ActorReducer";
+
+const reducers = combineReducers({ navBarReducer, movieReducer, actorReducer });
+const store = createStore(reducers);
+=======
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -10,10 +26,10 @@ import {Provider} from "react-redux"
 import navBarReducer from "./reducers/NavbarReducer";
 import movieReducer from "./reducers/MovieReducer"
 import articleReducer from "./reducers/ArticleReducer"
-import actorReducer from "./reducers/ActorReducer";
 
-const reducers = combineReducers({navBarReducer, movieReducer, articleReducer, actorReducer})
+const reducers = combineReducers({navBarReducer, movieReducer, articleReducer})
 const store = createStore(reducers)
+>>>>>>> cf5aa492fe336ec7a69268065af816bb2b912748
 
 ReactDOM.render(
   <React.StrictMode>

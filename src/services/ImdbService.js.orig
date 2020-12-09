@@ -44,6 +44,11 @@ async function fetchMovieByID(movieID) {
   );
   let credits = await creditsRes.json();
   movie.casts = credits.cast;
+<<<<<<< HEAD
+  console.log(JSON.stringify(movie));
+=======
+  // console.log(JSON.stringify(movie))
+>>>>>>> cf5aa492fe336ec7a69268065af816bb2b912748
   return movie;
 }
 
@@ -62,25 +67,20 @@ async function fetchPopularMovies(num) {
   return payload.results.slice(0, num);
 }
 
-async function fetchMoviesByTitle(title) {
-  const res = await fetch(
-    `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&query=${title}`,
-    {
-      method: "GET",
-    }
-  );
-
-  const payload = await res.json();
-  return payload.results;
-}
-
+<<<<<<< HEAD
 async function fetchActorByID(actorID) {
   const actorDetailsRes = await fetch(
     `https://api.themoviedb.org/3/person/${actorID}?api_key=${tmdbApiKey}`,
+=======
+async function fetchMoviesByTitle(title) {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&query=${title}`,
+>>>>>>> cf5aa492fe336ec7a69268065af816bb2b912748
     {
       method: "GET",
     }
   );
+<<<<<<< HEAD
   let actorDetails = await actorDetailsRes.json();
 
   const actorPhotosRes = await fetch(
@@ -107,6 +107,11 @@ async function fetchActorByID(actorID) {
   return actorDetails;
 }
 
+=======
+  const payload = await res.json();
+  return payload.results;
+}
+
 const getMovieNameById = async (movieId) => {
   const res = await fetch(
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${tmdbApiKey}&language=en-US`,
@@ -119,14 +124,18 @@ const getMovieNameById = async (movieId) => {
 }
 
 
+>>>>>>> cf5aa492fe336ec7a69268065af816bb2b912748
 const service = {
   findByTitle,
   findMoviesByUser,
   fetchPopularMovies,
   fetchMovieByID,
+<<<<<<< HEAD
   fetchActorByID,
+=======
   fetchMoviesByTitle,
   getMovieNameById
+>>>>>>> cf5aa492fe336ec7a69268065af816bb2b912748
 };
 
 export default service;

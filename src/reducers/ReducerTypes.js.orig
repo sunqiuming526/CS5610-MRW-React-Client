@@ -28,7 +28,9 @@ const actions = {
   FIND_MOVIES_BY_TITLE,
   FETCH_MOVIES,
   FETCH_MOVIE,
+<<<<<<< HEAD
   FETCH_ACTOR,
+=======
   GET_LOGIN_USER,
   FETCH_ARTICLES,
   FETCH_ARTICLE,
@@ -39,6 +41,7 @@ const actions = {
   DELETE_ARTICLE,
   ON_CHANGE,
   UPDATE_SEARCH_TYPE
+>>>>>>> cf5aa492fe336ec7a69268065af816bb2b912748
 };
 
 export default actions;

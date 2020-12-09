@@ -1,10 +1,15 @@
 import React from "react";
+<<<<<<< HEAD
 import { Figure } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { getPosterFullUrl, IMAGE_SIZE } from "../../services/utils";
+=======
+import {getPosterFullUrl, IMAGE_SIZE} from "../../services/utils";
+>>>>>>> cf5aa492fe336ec7a69268065af816bb2b912748
 
 const CastFigureComponent = ({cast}) => {
   return (
+<<<<<<< HEAD
     <Figure>
       <Link to={`/actors/${cast.id}`}>
         <img
@@ -18,6 +23,16 @@ const CastFigureComponent = ({cast}) => {
       </Figure.Caption>
       <Figure.Caption class="figure-caption">{cast.character}</Figure.Caption>
     </Figure>
+=======
+    <figure className="figure">
+      <img
+        src={getPosterFullUrl(IMAGE_SIZE.sm, cast.profile_path)}
+        className="figure-img img-fluid rounded"
+        alt={cast.name}
+      />
+      <figcaption className="figure-caption">{cast.character}</figcaption>
+    </figure>
+>>>>>>> cf5aa492fe336ec7a69268065af816bb2b912748
   );
 };
 
