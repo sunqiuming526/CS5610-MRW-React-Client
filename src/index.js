@@ -1,24 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {combineReducers, createStore} from "redux";
-import {Provider} from "react-redux"
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { combineReducers, createStore } from "redux";
+import { Provider } from "react-redux";
 
 import navBarReducer from "./reducers/NavbarReducer";
-import movieReducer from "./reducers/MovieReducer"
+import movieReducer from "./reducers/MovieReducer";
+import actorReducer from "./reducers/ActorReducer";
 
-const reducers = combineReducers({navBarReducer, movieReducer})
-const store = createStore(reducers)
+const reducers = combineReducers({ navBarReducer, movieReducer, actorReducer });
+const store = createStore(reducers);
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App/>
+      <App />
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

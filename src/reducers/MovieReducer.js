@@ -5,7 +5,7 @@ const initialState = {
   movie: {}
 }
 
-const NavBarReducer = (state = initialState, action) => {
+const MovieReducer = (state = initialState, action) => {
   switch (action.type) {
     case ReducerTypes.SEARCH_KEYWORD:
       return {
@@ -37,4 +37,4 @@ const NavBarReducer = (state = initialState, action) => {
   }
 }
 
-export default NavBarReducer
+export default MovieReducer
