@@ -106,7 +106,7 @@ async function fetchActorByID(actorID) {
   actorDetails.photos = profiles;
 
   const actorCreditsRes = await fetch(
-    `https://api.themoviedb.org/3/person/${actorID}/combined_credits?api_key=${tmdbApiKey}`,
+    `https://api.themoviedb.org/3/person/${actorID}/movie_credits?api_key=${tmdbApiKey}`,
     {
       method: "GET",
     }

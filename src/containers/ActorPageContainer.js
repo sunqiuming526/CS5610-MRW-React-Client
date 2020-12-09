@@ -11,7 +11,7 @@ const ActorPage = ({ findActorsByName, actors }) => {
   let location = useLocation();
   const query = new URLSearchParams(location.search);
   const name = query.get("name");
-  const page = parseInt(query.get("page"));
+  const page = parseInt(query.get("page") || "1");
   if (ref.current.name !== name || ref.current.page !== page) {
     findActorsByName(name, page || 1);
   }
