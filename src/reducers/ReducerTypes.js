@@ -8,6 +8,8 @@ export const FETCH_MOVIES = "FETCH_MOVIES";
 export const FETCH_MOVIE = "FETCH_MOVIE";
 // Fetch details of a given actor.
 export const FETCH_ACTOR = "FETCH_ACTOR";
+// Fetch a list of actors.
+export const FETCH_ACTORS = "FETCH_ACTORS";
 
 // Get the current login user data
 export const GET_LOGIN_USER = "GET_LOGIN_USER"
@@ -29,6 +31,7 @@ const actions = {
   FETCH_MOVIES,
   FETCH_MOVIE,
   FETCH_ACTOR,
+  FETCH_ACTORS,
   GET_LOGIN_USER,
   FETCH_ARTICLES,
   FETCH_ARTICLE,

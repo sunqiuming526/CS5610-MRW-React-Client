@@ -2,6 +2,8 @@ import React from "react";
 import { Figure, ListGroup, ListGroupItem } from "react-bootstrap";
 import { getPosterFullUrl, IMAGE_SIZE } from "../../services/utils";
 
+const placeholderImg = "http://via.placeholder.com/342x513";
+
 const decodeGender = (num) => {
   switch (num) {
     case 1:
@@ -33,7 +35,11 @@ const ActorBioComponent = ({ actorDetails }) => {
       <Figure>
         <Figure.Image
           alt="171x180"
-          src={getPosterFullUrl(IMAGE_SIZE.lg, actorDetails.profile_path)}
+          src={
+            actorDetails.profile_path
+              ? getPosterFullUrl(IMAGE_SIZE.lg, actorDetails.profile_path)
+              : placeholderImg
+          }
           fluid
           rounded
         />
