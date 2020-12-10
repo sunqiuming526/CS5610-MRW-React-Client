@@ -12,13 +12,13 @@ class ArticlePageContainer extends React.Component {
     articles: [],
     article: {},
     isAuthor: false,
+    isAdmin: false,
     AuthorName: "",
     userId: "",
     loginUser: {}
   }
 
   componentDidMount() {
-    console.log(this.props)
     const userId = this.props.match.params.userId;
 
     getCurrentUser().then(loginUser => this.setState(prev => ({
@@ -29,10 +29,12 @@ class ArticlePageContainer extends React.Component {
         this.setState(prev => ({
           ...prev,
           isAuthor: this.state.loginUser.role === 'author',
+          isAdmin: this.state.loginUser.role === 'admin',
           userId: this.state.loginUser._id
         }))
       }
     }))
+
     if (userId) {
       this.props.findArticlesByAuthor(userId);
     } else {
@@ -46,11 +48,11 @@ class ArticlePageContainer extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         {/*<NavbarComponent findArticlesByTitle={this.props.findArticlesByTitle}/>*/}
         <div className="sticky-box">
           {
-            this.state.isAuthor &&
+            (this.state.isAuthor || this.state.isAdmin) &&
             <button type="button" className="btn btn-success float-left"
                     onClick={() => this.props.addArticle(this.state.userId)}>
               Add Article
@@ -59,8 +61,9 @@ class ArticlePageContainer extends React.Component {
         </div>
         <ArticleGridComponent articles={this.props.articles}
                               userId={this.state.userId}
-                              deleteArticle={this.props.deleteArticle}/>
-      </div>
+                              deleteArticle={this.props.deleteArticle}
+                              loginUser={this.state.loginUser}/>
+      </>
     );
   }
 }

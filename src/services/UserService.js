@@ -23,8 +23,21 @@ export const getCurrentUser = () => {
     });
 }
 
+export const updateMultipleUsers = (userList, option = {password:false}) => {
+  if (option.password === false) {
+    for (const user of userList) {
+      delete user.password
+    }
+  }
+  const updateList = userList.map(user => updateUser(user._id, user))
+  Promise.all(updateList).then(res => {
+    // console.log(res)
+  })
+}
+
 const userService = {
-  updateUser
+  updateUser,
+  updateMultipleUsers
 }
 
 export default userService

@@ -10,17 +10,18 @@ import {Provider} from "react-redux"
 import navBarReducer from "./reducers/NavbarReducer";
 import movieReducer from "./reducers/MovieReducer"
 import articleReducer from "./reducers/ArticleReducer"
+import actorReducer from "./reducers/ActorReducer";
 
-const reducers = combineReducers({navBarReducer, movieReducer, articleReducer})
+const reducers = combineReducers({navBarReducer, movieReducer, articleReducer, actorReducer})
 const store = createStore(reducers)
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App/>
+      <App />
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -55,14 +55,17 @@ class MovieDetailsPage extends Component {
 
   addWatchlist = (movieId) => {
     this.setState(prev => ({...prev, isWatchlist: true}))
-    watchlistService.addMovieToWatchlist(this.state.loginUser._id, movieId)
-
+    if (this.state.loginUser) {
+      watchlistService.addMovieToWatchlist(this.state.loginUser._id, movieId)
+    }
   }
 
   removeWatchlist = (movieId) => {
 
     this.setState(prev => ({...prev, isWatchlist: false}))
-    watchlistService.removeMovieFromWatchlist(this.state.loginUser._id, movieId)
+    if (this.state.loginUser) {
+      watchlistService.removeMovieFromWatchlist(this.state.loginUser._id, movieId)
+    }
   }
 
   render() {

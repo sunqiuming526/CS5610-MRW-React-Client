@@ -18,23 +18,23 @@ class ArticleCardComponent extends React.Component{
                 <Card.Body>
                     <Card.Title>{this.props.article.title}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">
-                        Default Author
+                      {this.props.article.authorId.username}
                     </Card.Subtitle>
                     {
-                        this.props.userId === this.props.article.authorId &&
+                        this.props.userId === this.props.article.authorId._id &&
                         <Link to={`/${this.props.userId}/articles/${this.props.article._id}`}>
                             <Button variant="primary">Details</Button>
                         </Link>
                     }
                     {
-                        this.props.userId !== this.props.article.authorId &&
+                        this.props.userId !== this.props.article.authorId._id &&
                         <Link to={`/articles/${this.props.article._id}`}>
                             <Button variant="primary">Details</Button>
                         </Link>
                     }
 
                     {
-                        this.props.userId === this.props.article.authorId &&
+                      (this.props.loginUser.role === 'admin' || this.props.loginUser._id === this.props.article.authorId._id) &&
                         <i className="float-right"
                            onClick={()=> {
                                return this.props.deleteArticle(this.props.article)

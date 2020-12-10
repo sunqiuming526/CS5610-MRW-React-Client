@@ -13,10 +13,12 @@ import LoginForm from "./components/Login/LoginForm/LoginForm";
 import {createBrowserHistory} from "history";
 import MoviePageContainer from "./containers/MoviePageContainer";
 import MovieDetailsPage from "./containers/movie-details/MovieDetailsPage";
+import ActorDetailsPage from "./containers/actor-details/ActorDetailsPage";
 import axios from "axios";
 import {ACCESS_TOKEN_NAME, API_BASE_URL} from "./constants/ApiConstants";
 import ArticlePageContainer from "./containers/ArticlePageContainer"
 import ArticleDetailsComponent from "./containers/ArticleDetails"
+import ActorPageContainer from './containers/ActorPageContainer';
 
 function App() {
   const [title, updateTitle] = useState(null)
@@ -46,6 +48,10 @@ function App() {
             <Route path={["/"]} exact component={MoviePageContainer}/>
             <Route path={["/movies"]} exact component={MoviePageContainer}/>
             <Route path={"/movies/:movieID"} exact render={(props) => <MovieDetailsPage {...props} curUser={user}/>}/>
+
+            <Route path={"/actors/:actorID"} exact component={ActorDetailsPage} />
+            <Route path={"/actors"} exact component={ActorPageContainer} />
+
             <Route path={"/articles"} exact component={ArticlePageContainer}/>
             <Route path={"/:userId/articles"} exact component={ArticlePageContainer}/>
             <Route path={"/articles/:articleId"} exact component={ArticleDetailsComponent}/>

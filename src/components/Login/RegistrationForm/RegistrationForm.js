@@ -116,9 +116,9 @@ function RegistrationForm(props) {
         <div className="form-group text-left">
           <label htmlFor="exampleSelectRole">Role</label>
           <select className="form-control"
-                 id="role"
-                 onChange={handleChange}>
-            <option value="admin">Administrator</option>
+                  id="role"
+                  onChange={handleChange}>
+            <option value="admin" selected>Administrator</option>
             <option value="user">User</option>
             <option value="author">Author</option>
           </select>

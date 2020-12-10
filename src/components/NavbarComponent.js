@@ -14,104 +14,127 @@ import articleService from "../services/articleService";
 import Select from "react-dropdown-select";
 
 
-const NavbarComponent = (
-  {
-    keyword = "", typeKeyword, fetchMoviesByTitle, loginUser, getLoginUser, searchMovies, findArticlesByTitle,
-  }) => {
+const NavbarComponent =
+  ({
+     keyword = "",
+     typeKeyword,
+     fetchMoviesByTitle,
+     loginUser,
+     getLoginUser,
+     searchMovies,
+     findArticlesByTitle,
+   }) => {
+    let location = useLocation();
+    let history = useHistory();
+    const [searchType, setSearchType] = useState("Movie");
+    const [user, setUser] = useState({username: ""});
 
-  let location = useLocation();
-  let history = useHistory();
-  const [searchType, setSearchType] = useState("Movie")
-  const [user, setUser] = useState({username: ''});
+    useEffect(() => {
+      axios
+        .get(API_BASE_URL + "/users/me", {
+          headers: {token: localStorage.getItem(ACCESS_TOKEN_NAME)},
+        })
+        .then(function (response) {
+          if (response.status === 200) {
+            setUser(response.data);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }, []);
 
-  useEffect(() => {
-    axios.get(API_BASE_URL + '/users/me', {headers: {'token': localStorage.getItem(ACCESS_TOKEN_NAME)}})
-      .then(function (response) {
-        if (response.status == 200) {
-          setUser(response.data)
-        }
-      })
-      .catch(function (error) {
-        console.log(error)
-      });
-  }, [])
+    const handleLogout = () => {
+      localStorage.removeItem(ACCESS_TOKEN_NAME);
+      history.push("/login");
+    };
 
-  const handleLogout = () => {
-    localStorage.removeItem(ACCESS_TOKEN_NAME)
-    history.push('/login')
-  }
+    return (
+      <Navbar bg="dark" variant="dark" className="mb-4">
+        <Navbar.Brand as={Link} to="/">
+          Movie Review
+        </Navbar.Brand>
+        <Nav className="mr-auto">
+          <Nav.Link as={Link} to="/">
+            Home
+          </Nav.Link>
+          <Nav.Link as={Link} to={`/users/${user._id}/profile`}>
+            Profile
+          </Nav.Link>
+          <Nav.Link as={Link} to="/articles">
+            Articles
+          </Nav.Link>
+        </Nav>
+        {/*<Form inline>*/}
+        <InputGroup className="w-25">
+          <InputGroup.Prepend>
+            <Dropdown onSelect={setSearchType}>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                {searchType}
+              </Dropdown.Toggle>
 
-  return (
-    <Navbar bg="dark" variant="dark">
-      <Navbar.Brand as={Link} to="/">Movie Review</Navbar.Brand>
-      <Nav className="mr-auto">
-        <Nav.Link as={Link} to="/">Home</Nav.Link>
-        <Nav.Link as={Link} to="/home">Profile</Nav.Link>
-        <Nav.Link as={Link} to="/articles">Articles</Nav.Link>
-      </Nav>
-      {/*<Form inline>*/}
-      <InputGroup className="w-25">
-        <InputGroup.Prepend>
-          <Dropdown onSelect={setSearchType}>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-              {searchType}
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              <Dropdown.Item eventKey={"Movie"}>Movie</Dropdown.Item>
-              <Dropdown.Item eventKey={"Actor"}>Actor</Dropdown.Item>
-              <Dropdown.Item eventKey={"Article"}>Article</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </InputGroup.Prepend>
-        <FormControl
-          type="text"
-          placeholder="Search"
-          className="mr-sm-2"
-          onChange={(event) => typeKeyword(event.target.value)}
-          value={keyword}
-        />
-
-        {
-          searchType === "Movie" &&
-          <Button variant="outline-info" onClick={() => {
-            history.push(`/movies?name=${keyword}`)
-            fetchMoviesByTitle(keyword)
-          }}>
-            Search
-          </Button>
-        }
-
-        {
-          searchType === "Article" &&
-          <Button variant="outline-info" onClick={() => findArticlesByTitle(keyword)}>
-            Search
-          </Button>
-        }
-        {
-          user.username &&
-          <Button variant="outline-info" onClick={() => {
-            console.log(location.pathname)
-            handleLogout()
-          }}>
-            Logout
-          </Button>
-        }
-        {
-          !user.username &&
-          <Button variant="outline-info" onClick={() => {
-            console.log(location.pathname)
-            history.push("/login")
-          }}>
-            Login
-          </Button>
-        }
-      </InputGroup>
-      {/*</Form>*/}
-    </Navbar>
-  )
-};
-
+              <Dropdown.Menu>
+                <Dropdown.Item eventKey={"Movie"}>Movie</Dropdown.Item>
+                <Dropdown.Item eventKey={"Actor"}>Actor</Dropdown.Item>
+                <Dropdown.Item eventKey={"Article"}>Article</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </InputGroup.Prepend>
+          <FormControl
+            type="text"
+            placeholder="Search"
+            className="mr-sm-2"
+            onChange={(event) => typeKeyword(event.target.value)}
+            value={keyword}
+          />
+          {
+            searchType === "Movie" &&
+            <Button variant="outline-info" onClick={() => {
+              history.push(`/movies?name=${keyword}`)
+              fetchMoviesByTitle(keyword)
+            }}>
+              Search
+            </Button>
+          }
+          {searchType === "Actor" && (
+            <Button
+              variant="outline-info"
+              onClick={() => history.push(`/actors?name=${keyword}`)}
+            >
+              Search
+            </Button>
+          )}
+          {
+            searchType === "Article" &&
+            <Button variant="outline-info" onClick={() => findArticlesByTitle(keyword)}>
+              Search
+            </Button>
+          }
+          {
+            user.username &&
+            <Button variant="outline-info" onClick={() => {
+              console.log(location.pathname)
+              handleLogout()
+            }}>
+              Logout
+            </Button>
+          }
+          {!user.username && (
+            <Button
+              variant="outline-info"
+              onClick={() => {
+                console.log(location.pathname);
+                history.push("/login");
+              }}
+            >
+              Login
+            </Button>
+          )}
+        </InputGroup>
+        {/*</Form>*/}
+      </Navbar>
+    );
+  };
 
 const stateToPropertyMapper = (state) => ({
   keyword: state.navBarReducer.keyword,
@@ -132,22 +155,24 @@ const propertyToDispatchMapper = (dispatch) => ({
         movies: res,
       });
     }),
-
   fetchMoviesByTitle: (title) => {
     ImdbService.fetchMoviesByTitle(title).then((movies) => {
-      return dispatch({type: FETCH_MOVIES, movies})
-    })
+      return dispatch({type: FETCH_MOVIES, movies});
+    });
   },
   getLoginUser: () => {
-    return axios.get(API_BASE_URL + '/users/me', {headers: {'token': localStorage.getItem(ACCESS_TOKEN_NAME)}})
+    return axios
+      .get(API_BASE_URL + "/users/me", {
+        headers: {token: localStorage.getItem(ACCESS_TOKEN_NAME)},
+      })
       .then((response) => {
         return dispatch({
           type: ReducerTypes.GET_LOGIN_USER,
-          loginUser: response.data
-        })
+          loginUser: response.data,
+        });
       })
       .catch(function (error) {
-        console.log(error)
+        console.log(error);
       });
   },
   findArticlesByTitle: (keyword) => {

@@ -1,20 +1,24 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Dropdown, Form, FormControl, InputGroup, Row} from "react-bootstrap";
 import userService from "../../services/UserService";
 
-const EditProfileComponent = ({user}) => {
+const EditProfileComponent = ({user, loginUser}) => {
   const [username, setUsername] = useState(user.username)
   const [email, setEmail] = useState(user.email)
   const [role, setRole] = useState(user.role)
-  const [password, setPassword] = useState('****')
+  const [password, setPassword] = useState('')
 
   const submitUpdate = () => {
     userService.updateUser(user._id, {username, email, role, password})
   }
 
+  useEffect(() => {
+    console.log(loginUser)
+  }, [loginUser])
   return (
     <div id="profile">
       <h5 className="mb-3">User Profile</h5>
+      {loginUser && loginUser._id === user._id &&
       <Row className={"align-items-center"}>
         <div className="col-12">
           <h6>Username</h6>
@@ -22,7 +26,8 @@ const EditProfileComponent = ({user}) => {
           <h6>Email</h6>
           <FormControl value={email} onChange={(e) => setEmail(e.target.value)}/>
           <h6>Password</h6>
-          <FormControl value={password} onChange={(e) => setPassword(e.target.value)}/>
+          <FormControl placeholder={'Reset your password here'} value={password}
+                       onChange={(e) => setPassword(e.target.value)}/>
           <h6>Role</h6>
           <Form>
             <Form.Group controlId="exampleForm.SelectCustom">
@@ -40,6 +45,7 @@ const EditProfileComponent = ({user}) => {
           </Button>
         </div>
       </Row>
+      }
     </div>
 
   )
