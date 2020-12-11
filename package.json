@@ -6,13 +6,14 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
-    "@fortawesome/react-fontawesome": "^0.1.12",
+    "@fortawesome/react-fontawesome": "^0.1.13",
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
     "bootswatch": "^4.5.3",
+    "express": "^4.17.1",
     "query-string": "^6.13.7",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
@@ -23,10 +24,14 @@
     "react-router-hash-link": "^2.2.2",
     "react-scripts": "4.0.0",
     "redux": "^4.0.5",
-    "web-vitals": "^0.2.4"
+    "typescript": "^3.2.0-dev",
+    "web-vitals": "^0.2.4",
+    "jquery": "1.9.1",
+    "popper.js": "^1.16.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server.js",
+    "start-local": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -49,8 +54,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@fortawesome/free-solid-svg-icons": "^5.15.1",
-    "@fortawesome/react-fontawesome": "^0.1.13"
-  }
+  "devDependencies": {}
 }

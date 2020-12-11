@@ -21,20 +21,20 @@ class ArticleCardComponent extends React.Component{
                       {this.props.article.authorId.username}
                     </Card.Subtitle>
                     {
-                        this.props.userId === this.props.article.authorId._id &&
+                        this.props.userId === this.props.article.authorId &&
                         <Link to={`/${this.props.userId}/articles/${this.props.article._id}`}>
                             <Button variant="primary">Details</Button>
                         </Link>
                     }
                     {
-                        this.props.userId !== this.props.article.authorId._id &&
+                        this.props.userId !== this.props.article.authorId &&
                         <Link to={`/articles/${this.props.article._id}`}>
                             <Button variant="primary">Details</Button>
                         </Link>
                     }
 
                     {
-                      (this.props.loginUser.role === 'admin' || this.props.loginUser._id === this.props.article.authorId._id) &&
+                      (this.props.loginUser && this.props.loginUser.role === 'admin' || (this.props.loginUser && this.props.loginUser._id === this.props.article.authorId)) &&
                         <i className="float-right"
                            onClick={()=> {
                                return this.props.deleteArticle(this.props.article)
