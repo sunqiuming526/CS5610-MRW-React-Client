@@ -28,6 +28,7 @@ const NavbarComponent =
     let history = useHistory();
     const [searchType, setSearchType] = useState("Movie");
     const [user, setUser] = useState({username: ""});
+    // const []
 
     useEffect(() => {
       axios
@@ -111,7 +112,7 @@ const NavbarComponent =
             </Button>
           }
           {
-            user.username &&
+            localStorage.getItem(ACCESS_TOKEN_NAME) &&
             <Button variant="outline-info" onClick={() => {
               console.log(location.pathname)
               handleLogout()
@@ -119,7 +120,7 @@ const NavbarComponent =
               Logout
             </Button>
           }
-          {!user.username && (
+          {!localStorage.getItem(ACCESS_TOKEN_NAME) && (
             <Button
               variant="outline-info"
               onClick={() => {

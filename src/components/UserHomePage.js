@@ -75,6 +75,9 @@ const UserHomePage = (props) => {
             <InfoField fieldName={"Username"} fieldContent={targetUser.username}/>
           </ListGroup>
           <ListGroup>
+            <InfoField fieldName={"ID"} fieldContent={targetUser._id}/>
+          </ListGroup>
+          <ListGroup>
             <InfoField fieldName={"Email"} fieldContent={targetUser.email}/>
           </ListGroup>
           <ListGroup>
