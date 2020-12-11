@@ -1,4 +1,5 @@
-const url = "http://localhost:4000/articles"
+// const url = "http://localhost:4000/articles"
+const url = "https://mrw-final-project-node.herokuapp.com"
 
 const findAllArticles = () =>
     fetch(url)
