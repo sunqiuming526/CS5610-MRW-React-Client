@@ -1,4 +1,6 @@
-# PROTOTYPE
+# Movie Review Website using IMDB
+
+This is a course project utilizing React, Node.js, Express and MongoDB for developing a movie review website.
 
 ## Describes the API
 
